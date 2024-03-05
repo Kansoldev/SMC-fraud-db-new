@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import TabList from "@/components/TabList/";
 
