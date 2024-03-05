@@ -6,6 +6,11 @@ body {
   background-color: #eee;
 }
 
+table th,
+table td {
+  border: 1px solid #d8baba;
+}
+
 label {
   color: #333b69;
   font-size: 15px;
