@@ -54,7 +54,7 @@ export default function Page() {
         </div>
 
         <section>
-          <div className="w-full xl:w-10/12 mb-12 xl:mb-0 px-4 mx-auto mt-10">
+          <div className="w-full xl:w-11/12 mb-12 xl:mb-0 px-4 mx-auto mt-10">
             <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
               <div className="w-full overflow-x-auto">
                 <table className="w-full border-collapse">
@@ -101,7 +101,7 @@ export default function Page() {
                       <td className="px-6 align-middle p-4">
                         <Link
                           href="/profile"
-                          className="bg-black hover:bg-neutral-800 px-6 py-3 text-white font-semibold rounded-xl transition-all ease-in-out delay-150"
+                          className="bg-black hover:bg-neutral-800 px-6 py-3 inline-block w-max text-white font-semibold rounded-xl transition-all ease-in-out delay-150"
                         >
                           View Full Profile
                         </Link>
@@ -111,15 +111,15 @@ export default function Page() {
                 </table>
               </div>
             </div>
+
+            <Link
+              href="/add-profile"
+              className="bg-white text-black px-6 py-3 mt-3 inline-block rounded-lg font-semibold float-right"
+            >
+              + Add New Profile
+            </Link>
           </div>
         </section>
-
-        <Link
-          href="/add"
-          className="bg-white text-black px-6 py-3 mt-7 inline-block rounded-lg font-semibold ml-auto"
-        >
-          + Add New Profile
-        </Link>
       </main>
     </>
   );
