@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+export default function Page() {
   return (
     <div className="container mx-auto flex justify-center items-center h-screen">
       <div
