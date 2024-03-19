@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import Login from "@/src/view/auth/Login";
+import Register from "@/src/view/auth/Register";
 
 export default function Page() {
   return (
-    <Login />
+    <Register />
   );
 }
