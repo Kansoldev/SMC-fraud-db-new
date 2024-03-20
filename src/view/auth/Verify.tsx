@@ -1,13 +1,13 @@
 'use client'
 import Image from "next/image";
 import Link from "next/link";
-import {SyntheticEvent, useState, useRef, FormEvent} from 'react';
+import {SyntheticEvent, useState, useRef, FormEvent, useEffect} from 'react';
 import {useRouter} from "next/navigation";
 import {login} from "@/src/api/auth";
 import {post} from "@/src/api/fetch";
 import {useCookies} from "next-client-cookies";
 
-const Login = () => {
+const Verify = () => {
 
     const router = useRouter();
     const emailRef = useRef<HTMLInputElement>(null);
@@ -22,6 +22,13 @@ const Login = () => {
 
     const cookie = useCookies()
 
+    console.log(cookie.get('loginEmail'))
+
+    useEffect(() => {
+        if(!cookie.get('loginEmail')) {
+            router.push('/')
+        }
+    }, [cookie, router]);
     const validateEmail = (email: string) => {
         return String(email)
             .toLowerCase()
@@ -102,47 +109,35 @@ const Login = () => {
                 />
                 <h1 className="font-bold text-2xl text-center mb-8">SMC DAO</h1>{" "}
                 <div id="contact-form" className="contact-form mt-30 mb-30">
-                    <form onSubmit={onSubmit} noValidate={true}>
-                        {error && (
-                            <div className="mb-3" role="alert">{error}</div>
-                        )}
+          <span className="text-center block mb-4 bg-green-600 text-white p-2">
+            Verify OTP sent to your email address
+          </span>
 
-                        <div className="form-group items-center gap-2 mb-8">
-                            <label htmlFor="email" hidden>
-                                Email
-                            </label>
+                    <div className="form-group flex items-center gap-2 mb-8">
+                        <label htmlFor="code" hidden>
+                            OTP
+                        </label>
 
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="Johndoe@xyz.com"
-                                className="w-full h-[52px] bg-[#eee] px-5 outline-0"
-                                ref={emailRef}
-                                aria-describedby="email-feedback"
-                            />
-                            {
-                                emailError && (
-                                    <div className="" id="email-feedback">
-                                        {emailError}
-                                    </div>
-                                )
-                            }
+                        <input
+                            type="text"
+                            id="code"
+                            name=""
+                            placeholder="Confirm OTP"
+                            className="w-full h-[52px] bg-[#eee] px-5 outline-0"
+                        />
+                    </div>
 
-                        </div>
-
-                        <button type="submit"
-                            // href="/verify"
-                            className="block bg-black hover:bg-neutral-800 text-white px-4 py-3 shadow w-full text-lg text-center"
-                        >
-                            Continue {isLoading && (<i className="fa-duotone fa-loader fa-spin"></i>)}
-                        </button>
-                    </form>
-
+                    <button
+                        type="submit"
+                        // href="/home"
+                        className="block bg-black hover:bg-neutral-800 text-white px-4 py-3 shadow w-full text-lg text-center"
+                    >
+                        Login
+                    </button>
                 </div>
             </div>
         </div>
     );
 }
 
-export default Login;
+export default Verify;

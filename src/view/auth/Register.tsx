@@ -26,9 +26,8 @@ const Register = () => {
             );
     };
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
+        setIsLoading(true);
         setError(null);
-        setLoginError(null);
-        setVerifyAccount(null);
 
         try {
             event.preventDefault(); // Prevent default form submission
@@ -37,48 +36,20 @@ const Register = () => {
 
             const email = formData.get("email") as string;
             console.log(email)
-            // if (!email.trim()) {
-            //     isValidated = false;
-            //     setEmailError('You must enter an email address.');
-            //     emailRef.current?.focus();
-            // }
-            // else if (!validateEmail(email)) {
-            //     isValidated = false;
-            //     setEmailError('Invalid email address.');
-            //     emailRef.current?.focus();
-            // }
-            //
-            // if (emailError) {
-            //     return;
-            // }
 
             if (isValidated) {
                 setIsLoading(true);
 
-                const res = await post(formData, 'register');
+                const res = await post(formData, 'register')
 
                 console.log(res)
-                if (res.status === 401) {
-                    setError('We couldn’t find an account matching the email and password you entered. Please check your email and password and try again.');
-                    emailRef.current?.focus();
-                } else if (res.status === 403) {
-                    if (res.code === 1) {
-                        setEmailError(res.message);
-                        emailRef.current?.focus();
-                    }
-                    if (res.code === 2) {
-                        setPasswordError(res.message);
-                        passwordRef.current?.focus();
-                    }
-                    if (res.code === 3) {
-                        setVerifyAccount(res.message);
-                    }
-                    console.log(res);
-                } else if (res.status === 404) {
-                    setLoginError("An unknown error occurred, please try again.");
-                } else if (res.status === 200) {
-                    router.push('/dashboard');
+                console.log(res.status)
+                if (res.status === 200) {
+                    router.push('/');
+                } else {
+                    setError(res.message)
                 }
+
             }
 
         } catch (error) {
@@ -109,8 +80,11 @@ const Register = () => {
                 <div id="contact-form" className="contact-form mt-30 mb-30">
                     <form onSubmit={onSubmit} noValidate={true}>
                         <>
+                            {error && (
+                                <div className="mb-3" role="alert">{error}</div>
+                            )}
                             <div className="row row-30">
-                                <div className="col-lg-6">
+                            <div className="col-lg-6">
                                     <div className="form-group">
                                         <label htmlFor="fname">Full Name</label>
 
@@ -119,30 +93,6 @@ const Register = () => {
                                             className="form-control"
                                             name="name"
                                             id="name"
-                                        />
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6">
-                                    <div className="form-group">
-                                        <label htmlFor="sex">Gender</label>
-
-                                        <select name="sex" id="" className="form-control">
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div className="col-lg-6">
-                                    <div className="form-group">
-                                        <label htmlFor="dob">Date of Birth</label>
-
-                                        <input
-                                            type="date"
-                                            name="dob"
-                                            id="dob"
-                                            className="form-control"
                                         />
                                     </div>
                                 </div>
@@ -205,7 +155,7 @@ const Register = () => {
                             // href="/verify"
                                 className="block bg-black hover:bg-neutral-800 text-white px-4 py-3 shadow w-full text-lg text-center"
                         >
-                            Continue
+                            Submit {isLoading && (<i className="fa-duotone fa-loader fa-spin"></i>)}
                         </button>
                     </form>
 

@@ -1,6 +1,5 @@
 'use server'
 import {getCookies} from "next-client-cookies/server";
-import {headers} from "next/headers";
 
 export async function post(formData, path) {
 
@@ -17,24 +16,15 @@ export async function post(formData, path) {
     });
     formDataObject['timestamp'] = Date.now()
 
-    try {
-        const res = await fetch(`${process.env.API_URL}/${path}`, {
+    return await fetch(`${process.env.API_URL}/${path}`, {
             method: 'POST',
             headers: headers,
             body: JSON.stringify(formDataObject)
-        }, { revalidate: 1 });
+        }, {revalidate: 1})
+            .then(response => {
+                return response.json()
+            })
 
-        // console.log(formDataObject)
-
-        if(res.ok) {
-            const data = await res.json();
-            return data
-        }
-         return res.status
-    } catch (error) {
-        console.error('Error:', error);
-        return 500;
-    }
 }
 
 export async function get(path) {

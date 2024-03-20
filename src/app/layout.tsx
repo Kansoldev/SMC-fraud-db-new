@@ -17,7 +17,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-    <Script src="https://app.curbcutos.com/public/javascript/fa.js"></Script>
+    <Script src="https://app.curbcutos.com/javascript/fa.js"></Script>
       <body className={font.className}>{children}</body>
     </html>
   );
