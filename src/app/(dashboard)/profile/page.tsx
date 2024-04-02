@@ -1,5 +1,5 @@
 import Link from "next/link";
-import TabList from "@/components/TabList/";
+import TabList from "@/components/TabList";
 
 export default function Page() {
   const tabsData = [
