@@ -10,14 +10,10 @@ import {useCookies} from "next-client-cookies";
 const Verify = () => {
 
     const router = useRouter();
-    const emailRef = useRef<HTMLInputElement>(null);
-    const passwordRef = useRef<HTMLInputElement>(null);
+    const codeRef = useRef<HTMLInputElement>(null);
 
     const [error, setError] = useState<string | null>(null);
-    const [loginError, setLoginError] = useState<string | null>(null);
-    const [verifyAccount, setVerifyAccount] = useState<string | null>(null);
-    const [emailError, setEmailError] = useState<string | null>(null);
-    const [passwordError, setPasswordError] = useState<string | null>(null);
+    const [codeError, setCodeError] = useState<string | null>(null);
     const [isLoading, setIsLoading] = useState(false);
 
     const cookie = useCookies()
@@ -39,11 +35,12 @@ const Verify = () => {
     const onSubmit = async (event: FormEvent<HTMLFormElement>) => {
         setIsLoading(true);
         setError(null);
-        setEmailError(null);
+        setCodeError(null);
 
         try {
             event.preventDefault(); // Prevent default form submission
             const formData = new FormData(event.currentTarget);
+            formData.set('email', cookie.get('loginEmail') as string)
             let isValidated = true;
 
             const email = formData.get("email") as string;
@@ -51,32 +48,26 @@ const Verify = () => {
 
             if (!email.trim()) {
                 isValidated = false;
-                setEmailError('You must enter an email address.');
-                emailRef.current?.focus();
-            }
-            else if (!validateEmail(email)) {
-                isValidated = false;
-                setEmailError('Invalid email address.');
-                emailRef.current?.focus();
+                setCodeError('You must an OTP.');
+                codeRef.current?.focus();
             }
 
-            if (emailError) {
+            if (codeError) {
                 return;
             }
 
             if (isValidated) {
 
-                const res = await post(formData, 'login')
+                const res = await login(formData)
 
                 console.log(res)
                 console.log(res.status)
                 if (res.status === 200) {
-                    cookie.set('loginEmail', email)
-                    router.push('/verify');
+                    router.push('/');
                 }
                 else if (res.status === 403) {
-                    setEmailError(res.message);
-                    emailRef.current?.focus();
+                    setCodeError(res.message);
+                    codeRef.current?.focus();
                 }
                 else {
                     setError(res.message)
@@ -108,33 +99,48 @@ const Verify = () => {
                     height={120}
                 />
                 <h1 className="font-bold text-2xl text-center mb-8">SMC DAO</h1>{" "}
-                <div id="contact-form" className="contact-form mt-30 mb-30">
-          <span className="text-center block mb-4 bg-green-600 text-white p-2">
-            Verify OTP sent to your email address
-          </span>
+                <form onSubmit={onSubmit} noValidate={true}>
+                    <>
+                        {error && (
+                            <div className="mb-3" role="alert">{error}</div>
+                        )}
+                    <div id="contact-form" className="contact-form mt-30 mb-30">
+                        <span className="text-center block mb-4 bg-green-600 text-white p-2">
+                            Verify OTP sent to your email address
+                        </span>
 
-                    <div className="form-group flex items-center gap-2 mb-8">
-                        <label htmlFor="code" hidden>
-                            OTP
-                        </label>
+                        <div className="form-group items-center gap-2 mb-8">
+                            <label htmlFor="code" hidden>
+                                OTP
+                            </label>
 
-                        <input
-                            type="text"
-                            id="code"
-                            name=""
-                            placeholder="Confirm OTP"
-                            className="w-full h-[52px] bg-[#eee] px-5 outline-0"
-                        />
-                    </div>
+                            <input
+                                type="text"
+                                id="code"
+                                name="code"
+                                ref={codeRef}
+                                placeholder="Confirm OTP"
+                                className="w-full h-[52px] bg-[#eee] px-5 outline-0"
+                            />
+                            {
+                                codeError && (
+                                    <div className="mt-2" id="email-feedback">
+                                        {codeError}
+                                    </div>
+                                )
+                            }
+                        </div>
 
-                    <button
-                        type="submit"
-                        // href="/home"
-                        className="block bg-black hover:bg-neutral-800 text-white px-4 py-3 shadow w-full text-lg text-center"
-                    >
-                        Login
-                    </button>
-                </div>
+                            <button
+                                type="submit"
+                                // href="/home"
+                                className="block bg-black hover:bg-neutral-800 text-white px-4 py-3 shadow w-full text-lg text-center"
+                            >
+                                Login {isLoading && (<i className="fa-duotone fa-loader fa-spin"></i>)}
+                            </button>
+                        </div>
+                    </>
+                </form>
             </div>
         </div>
     );

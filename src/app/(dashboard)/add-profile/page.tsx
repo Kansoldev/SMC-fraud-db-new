@@ -5,5 +5,8 @@ import Link from "next/link";
 import AddProfile from "@/src/view/dashboard/addProfile";
 
 export default function Page() {
-    <AddProfile/>
+    return (
+            <AddProfile />
+        )
+
 }

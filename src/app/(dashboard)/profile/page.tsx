@@ -1,7 +1,11 @@
 import Link from "next/link";
 import TabList from "@/components/TabList";
+import {useRouter} from "next/navigation";
 
 export default function Page() {
+
+    const router = useRouter();
+
   const tabsData = [
     {
       title: "Social Media",
@@ -100,7 +104,7 @@ export default function Page() {
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
       <div className="w-[1000px] mx-auto">
-        <Link href="/home" className="block mb-5 text-lg underline">
+        <Link href="#" onClick={() => router.back()} className="block mb-5 text-lg underline">
           &laquo; Back
         </Link>
 

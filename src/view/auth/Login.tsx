@@ -59,7 +59,7 @@ const Login = () => {
 
             if (isValidated) {
 
-                const res = await post(formData, 'login')
+                const res = await post(formData, 'auth/login')
 
                 console.log(res)
                 console.log(res.status)

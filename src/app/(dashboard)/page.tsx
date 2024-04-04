@@ -10,16 +10,17 @@ export default function Page() {
 
   async function process() {
     try {
-      return await get('profiles');
+      return await get('user/profiles');
     } catch (error) {
       console.error('Error:', error);
       return false;
     }
   }
 
-  const result = useQuery({ queryKey: ['profiles'], queryFn: process })?.data
+  const result = useQuery({ queryKey: ['profiles'], queryFn: process })
 
+  console.log(result.status)
   return (
-      <Home data={result} />
+      <Home data={result?.data} />
   );
 }

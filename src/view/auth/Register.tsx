@@ -40,12 +40,12 @@ const Register = () => {
             if (isValidated) {
                 setIsLoading(true);
 
-                const res = await post(formData, 'register')
+                const res = await post(formData, 'auth/register')
 
                 console.log(res)
                 console.log(res.status)
                 if (res.status === 200) {
-                    router.push('/');
+                    router.push('/login');
                 } else {
                     setError(res.message)
                 }
