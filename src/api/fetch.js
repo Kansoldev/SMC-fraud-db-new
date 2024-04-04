@@ -38,7 +38,7 @@ export async function get(path) {
 
 
     try {
-        const res = await fetch(`${process.env.API_URL}/api/v1/${path}`, {
+        const res = await fetch(`${process.env.API_URL}/${path}`, {
             method: 'GET',
             headers: headers,
         }, { revalidate: 1 });
