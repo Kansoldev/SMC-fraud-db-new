@@ -1,12 +1,43 @@
+'use client'
 import Link from "next/link";
-import TabList from "@/components/TabList";
-import {useRouter} from "next/navigation";
+import TabList from "@/src/components/TabList/index";
+import {useRouter, useSearchParams} from "next/navigation";
+import {useEffect} from "react";
+import {get, post} from "@/src/api/fetch";
+import {useQuery} from "@tanstack/react-query";
 
 export default function Page() {
 
     const router = useRouter();
+    const searchParams = useSearchParams()
+    const uid = searchParams.get('uid')
+    console.log(uid)
 
-  const tabsData = [
+    async function process() {
+        try {
+
+            if(uid) {
+                const formData = new FormData()
+                formData.append("uid", uid as string)
+                return await post(formData, 'user/profile');
+            }
+            else {
+                return false
+            }
+
+        } catch (error) {
+            console.error('Error:', error);
+            return false;
+        }
+    }
+
+    const result = useQuery({ queryKey: ['profile'], queryFn: process })
+
+    console.log(result?.status)
+    console.log(result?.data)
+
+    const user = result?.data?.profile ?? null
+    const tabsData = [
     {
       title: "Social Media",
       content: (
@@ -128,21 +159,27 @@ export default function Page() {
             >
               <p className="text-gray-500">
                 Full Name:{" "}
-                <span className="text-black ml-3">Alyson Tanner</span>
+                <span className="text-black ml-3">{user?.name}</span>
               </p>
 
               <p className="text-gray-500 mt-3">
-                Sex: <span className="text-black ml-3">001</span>
+                Sex: <span className="text-black ml-3">{user?.gender}</span>
               </p>
 
               <p className="text-gray-500 mt-3">
                 Date of birth:{" "}
-                <span className="text-black ml-3">test@gmail.com</span>
+                <span className="text-black ml-3">
+                    {new Date(user?.dob).toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                })}
+                </span>
               </p>
 
               <p className="text-gray-500 mt-3">
                 Phone number:{" "}
-                <span className="text-black ml-3">Alyson Tanner</span>
+                <span className="text-black ml-3">{user?.phone}</span>
               </p>
             </div>
 
@@ -156,20 +193,26 @@ export default function Page() {
             >
               <p className="text-gray-500">
                 Email address:{" "}
-                <span className="text-black ml-3">Alyson Tanner</span>
+                <span className="text-black ml-3">{user?.email}</span>
               </p>
 
               <p className="text-gray-500 mt-3">
-                Country: <span className="text-black ml-3">001</span>
+                Country: <span className="text-black ml-3">{user?.country}</span>
               </p>
 
               <p className="text-gray-500 mt-3">
-                State: <span className="text-black ml-3">test@gmail.com</span>
+                State: <span className="text-black ml-3">{user?.state}</span>
               </p>
 
               <p className="text-gray-500 mt-3">
                 Profile created:{" "}
-                <span className="text-black ml-3">test@gmail.com</span>
+                <span className="text-black ml-3">
+                    {new Date(user?.date).toLocaleDateString('en-US', {
+                    day: 'numeric',
+                    month: 'long',
+                    year: 'numeric'
+                })}
+                </span>
               </p>
             </div>
           </div>

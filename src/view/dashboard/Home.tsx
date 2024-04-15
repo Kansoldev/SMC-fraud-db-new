@@ -109,7 +109,7 @@ const Home: React.FC<any> = ({ data }) => {
 
                                             <td className="px-6 align-middle p-4">
                                                 <Link
-                                                    href="/profile"
+                                                    href={`/profile?uid=${profile._id}`}
                                                     className="bg-black hover:bg-neutral-800 px-6 py-3 inline-block w-max text-white font-semibold rounded-xl transition-all ease-in-out delay-150"
                                                 >
                                                     View Full Profile

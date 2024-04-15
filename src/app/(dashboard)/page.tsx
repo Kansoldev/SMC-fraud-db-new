@@ -20,6 +20,7 @@ export default function Page() {
   const result = useQuery({ queryKey: ['profiles'], queryFn: process })
 
   console.log(result.status)
+  console.log(result.data)
   return (
       <Home data={result?.data} />
   );
