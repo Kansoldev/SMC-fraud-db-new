@@ -143,7 +143,7 @@ export default function Page() {
           <div className="flex items-center justify-between gap-10 p-5">
             <div className="profile-img">
               <img
-                src="/profile-agent.jpg"
+                src="/anonymous.png"
                 className="object-cover rounded-full"
                 alt=""
               />
