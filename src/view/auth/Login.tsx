@@ -39,7 +39,6 @@ const Login = () => {
       let isValidated = true;
 
       const email = formData.get("email") as string;
-      console.log(email);
 
       if (!email.trim()) {
         isValidated = false;
@@ -49,10 +48,6 @@ const Login = () => {
         isValidated = false;
         setEmailError("Invalid email address.");
         emailRef.current?.focus();
-      }
-
-      if (emailError) {
-        return;
       }
 
       if (isValidated) {
