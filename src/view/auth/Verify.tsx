@@ -14,7 +14,6 @@ const Verify = () => {
   const [error, setError] = useState<string | null>(null);
   const [codeError, setCodeError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
   const cookie = useCookies();
 
   console.log(cookie.get("loginEmail"));
@@ -49,10 +48,6 @@ const Verify = () => {
         isValidated = false;
         setCodeError("You must an OTP.");
         codeRef.current?.focus();
-      }
-
-      if (codeError) {
-        return;
       }
 
       if (isValidated) {
@@ -96,16 +91,16 @@ const Verify = () => {
         <h1 className="font-bold text-2xl text-center mb-8">SMC DAO</h1>{" "}
         <form onSubmit={onSubmit} noValidate={true}>
           <>
-            {error && (
-              <div className="mb-3" role="alert">
-                {error}
-              </div>
-            )}
-            <div id="contact-form" className="contact-form mt-30 mb-30">
-              <span className="text-center block mb-4 bg-green-600 text-white p-2">
-                Verify OTP sent to your email address
-              </span>
+            <span className="text-center block mb-4 bg-green-600 text-white p-2">
+              Verify OTP sent to your email address
+            </span>
 
+            <div id="contact-form" className="contact-form mt-30 mb-30">
+              {error && (
+                <div className="mb-3 text-red-700" role="alert">
+                  {error}
+                </div>
+              )}
               <div className="form-group items-center gap-2 mb-8">
                 <label htmlFor="code" hidden>
                   OTP
