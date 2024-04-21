@@ -16,6 +16,7 @@ const AddProfile = () => {
   const [emailError, setEmailError] = useState<string | null>(null);
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [wallet, setWallet] = useState("dex");
 
   const validateEmail = (email: string) => {
     return String(email)
@@ -123,10 +124,10 @@ const AddProfile = () => {
                 </div>
 
                 <div className="form-group">
-                  <label htmlFor="sex">Gender </label>
+                  <label htmlFor="sex">Gender</label>
 
                   <select name="gender" id="" className="form-control">
-                    <option value="male" selected>
+                    <option value="male" defaultValue>
                       Male
                     </option>
                     <option value="female">Female</option>
@@ -145,6 +146,50 @@ const AddProfile = () => {
                     className="form-control"
                   />
                 </div>
+
+                <div className="form-group">
+                  <label htmlFor="wallet-address">
+                    Wallet address <span className="text-red-500">*</span>
+                  </label>
+
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="walletAddress"
+                    id="wallet-address"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="wallet-type">Wallet Type</label>
+
+                  <select
+                    id="wallet-type"
+                    className="form-control"
+                    name="walletType"
+                    onChange={(e) => setWallet(e.target.value)}
+                  >
+                    <option value="DEX" defaultValue>
+                      DEX
+                    </option>
+
+                    <option value="CEX">CEX</option>
+                  </select>
+                </div>
+
+                {wallet === "CEX" && (
+                  <div className="form-group">
+                    <label htmlFor="cex-type">CEX Type</label>
+
+                    <select
+                      name="cexType"
+                      id="cex-type"
+                      className="form-control"
+                    >
+                      <option value="binance">Binance</option>
+                    </select>
+                  </div>
+                )}
 
                 <div className="form-group">
                   <label htmlFor="country">
