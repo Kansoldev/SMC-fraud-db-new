@@ -1,16 +1,31 @@
 "use client";
 import Link from "next/link";
-import TabList from "@/src/components/TabList/index";
+import TabList from "@/src/components/TabList";
+import FormModal from "@/src/components/FormModal";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useState, useRef, MouseEvent } from "react";
 import { get, post } from "@/src/api/fetch";
 import { useQuery } from "@tanstack/react-query";
+
+import { MouseEvent } from "react";
 
 export default function Page() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [modalOpen, setModalOpen] = useState(false);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
+
   const uid = searchParams.get("uid");
   console.log(uid);
+
+  const handleOpenModal = (event: MouseEvent<HTMLButtonElement>) => {
+    setModalOpen(true);
+    buttonRef.current = event.target.textContent;
+  };
+
+  const handleCloseModal = () => {
+    setModalOpen(false);
+  };
 
   async function process() {
     try {
@@ -69,7 +84,10 @@ export default function Page() {
       content: (
         <>
           <div>
-            <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black">
+            <button
+              onClick={(e) => handleOpenModal(e)}
+              className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black"
+            >
               Add a new wallet
             </button>
           </div>
@@ -80,7 +98,10 @@ export default function Page() {
       title: "Images",
       content: (
         <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black">
+          <button
+            onClick={handleOpenModal}
+            className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black"
+          >
             Add Images
           </button>
         </>
@@ -222,6 +243,12 @@ export default function Page() {
           </div>
         </div>
       </div>
+
+      <FormModal
+        isOpen={modalOpen}
+        onClose={handleCloseModal}
+        currentBtn={buttonRef}
+      />
     </div>
   );
 }
