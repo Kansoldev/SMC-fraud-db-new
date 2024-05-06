@@ -3,7 +3,7 @@ import Link from "next/link";
 import TabList from "@/src/components/TabList";
 import FormModal from "@/src/components/FormModal";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState, useRef, MouseEvent } from "react";
+import {useState, useRef, MouseEvent, FormEvent} from "react";
 import { get, post } from "@/src/api/fetch";
 import { useQuery } from "@tanstack/react-query";
 
@@ -48,33 +48,35 @@ export default function Page() {
   console.log(result?.data);
 
   const user = result?.data?.profile ?? null;
+  const wallets = result?.data?.wallet ?? null;
+
   const tabsData = [
     {
       title: "Social Media",
       content: (
         <>
           <p className="text-gray-500">
-            Facebook: <span className="text-black ml-3"></span>
+            Facebook: <span className="text-black ml-3">{user?.facebook}</span>
           </p>
 
           <p className="text-gray-500 mt-3">
-            Discord: <span className="text-black ml-3"></span>
+            Discord: <span className="text-black ml-3">{user?.discord}</span>
           </p>
 
           <p className="text-gray-500 mt-3">
-            Instagram: <span className="text-black ml-3"></span>
+            Instagram: <span className="text-black ml-3">{user?.instagram}</span>
           </p>
 
           <p className="text-gray-500 mt-3">
-            Telegram: <span className="text-black ml-3"></span>
+            Telegram: <span className="text-black ml-3">{user?.telegram}</span>
           </p>
 
           <p className="text-gray-500 mt-3">
-            Twitter: <span className="text-black ml-3"></span>
+            Twitter: <span className="text-black ml-3">{user?.twitter}</span>
           </p>
 
           <p className="text-gray-500 mt-3">
-            Whatsapp: <span className="text-black ml-3"></span>
+            Whatsapp: <span className="text-black ml-3">{user?.whatsapp}</span>
           </p>
         </>
       ),
@@ -82,24 +84,43 @@ export default function Page() {
     {
       title: "Wallet Information",
       content: (
-        <>
-          <div>
-            <button
-              onClick={(e) => handleOpenModal(e)}
-              className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black"
-            >
-              Add a new wallet
-            </button>
-          </div>
-        </>
+          <>
+            {wallets && wallets.length > 0 && wallets.map((wallet, key) => (
+                <div key={key} className="my-2">
+                  <p className="text-gray-500" >
+                    Wallet address: <span className="text-black ml-3">{wallet?.address}</span>
+                  </p>
+                  <p className="text-gray-500" >
+                    Wallet Type: <span className="text-black ml-3">{wallet?.type}</span>
+                  </p>
+                  <p className="text-gray-500" >
+                    Tokens: <span className="text-black ml-3">{wallet?.tokens}</span>
+                  </p>
+                  <p className="text-gray-500 mb-2" >
+                    Tags: <span className="text-black ml-3">{wallet?.tags}</span>
+                  </p>
+                  <hr/>
+                </div>
+
+            ))}
+
+            <div>
+              <button
+                  onClick={(e) => handleOpenModal(e)}
+                  className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black"
+              >
+                Add a new wallet
+              </button>
+            </div>
+          </>
       ),
     },
     {
       title: "Images",
       content: (
-        <>
-          <button
-            onClick={handleOpenModal}
+          <>
+            <button
+                onClick={handleOpenModal}
             className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black"
           >
             Add Images
@@ -245,6 +266,7 @@ export default function Page() {
       </div>
 
       <FormModal
+          user={user}
         isOpen={modalOpen}
         onClose={handleCloseModal}
         currentBtn={buttonRef}

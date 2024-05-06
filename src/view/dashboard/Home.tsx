@@ -8,6 +8,7 @@ import React from "react";
 const Home: React.FC<any> = ({ data }) => {
   // console.log(data)
   const profiles = data?.profiles;
+  const wallet = data?.wallet;
 
   return (
     <>
@@ -106,24 +107,54 @@ const Home: React.FC<any> = ({ data }) => {
                           },
                           index: number
                         ) => (
-                          <tr key={index}>
-                            <td className="px-6 align-middle p-4">
-                              {profile.name}
-                            </td>
+                            <tr key={index}>
+                              <td className="px-6 align-middle p-4">
+                                {profile.name}
+                              </td>
 
-                            <td className="px-6 align-middle p-4">
-                              {profile.walletAddress}
-                            </td>
+                              {wallet ? wallet.length > 0 ? wallet.map((w, key) => (
+                                  <>
+                                    <td className="px-6 align-middle p-4">
+                                      {w.user === profile._id && (
+                                          w.address
+                                      )}
+                                    </td>
 
-                            <td className="px-6 align-center p-4">
-                              {profile.walletType}
-                            </td>
+                                    <td className="px-6 align-center p-4">
+                                      {w.user === profile._id && (
+                                          w.type
+                                      )}
+                                    </td>
+                                  </>
 
-                            <td className="px-6 align-middle p-4">
-                              {profile.phone}
-                            </td>
+                              )) : (
+                                  <>
+                                    <td className="px-6 align-middle p-4">
 
-                            <td className="px-6 align-middle p-4">
+                                    </td>
+
+                                    <td className="px-6 align-center p-4">
+
+                                    </td>
+                                  </>
+                              ): (
+                                  <>
+                                    <td className="px-6 align-middle p-4">
+
+                                    </td>
+
+                                    <td className="px-6 align-center p-4">
+
+                                    </td>
+                                  </>
+                              )
+                              }
+
+                              <td className="px-6 align-middle p-4">
+                                {profile.phone}
+                              </td>
+
+                              <td className="px-6 align-middle p-4">
                               {profile.email}
                             </td>
 

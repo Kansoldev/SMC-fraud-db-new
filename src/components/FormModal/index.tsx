@@ -2,10 +2,12 @@ import WalletForm from "@/src/view/dashboard/forms/addWallet";
 import ImageForm from "@/src/view/dashboard/forms/addImages";
 
 function FormModal({
+    user,
   isOpen,
   currentBtn,
   onClose,
 }: {
+  user: any;
   isOpen: Boolean;
   currentBtn: { current: string };
   onClose: () => void;
@@ -24,7 +26,7 @@ function FormModal({
           &times;
         </button>
 
-        {currentBtn.current === "Add a new wallet" && <WalletForm />}
+        {currentBtn.current === "Add a new wallet" && <WalletForm data={user}/>}
         {currentBtn.current === "Add Images" && <ImageForm />}
       </div>
     </div>

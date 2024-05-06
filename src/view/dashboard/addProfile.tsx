@@ -127,7 +127,7 @@ const AddProfile = () => {
                   <label htmlFor="sex">Gender</label>
 
                   <select name="gender" id="" className="form-control">
-                    <option value="male" defaultValue>
+                    <option value="male">
                       Male
                     </option>
                     <option value="female">Female</option>
@@ -155,7 +155,7 @@ const AddProfile = () => {
                   <input
                     type="text"
                     className="form-control"
-                    name="walletAddress"
+                    name="address"
                     id="wallet-address"
                   />
                 </div>
@@ -166,10 +166,10 @@ const AddProfile = () => {
                   <select
                     id="wallet-type"
                     className="form-control"
-                    name="walletType"
+                    name="type"
                     onChange={(e) => setWallet(e.target.value)}
                   >
-                    <option value="DEX" defaultValue>
+                    <option value="DEX">
                       DEX
                     </option>
 
@@ -182,7 +182,7 @@ const AddProfile = () => {
                     <label htmlFor="cex-type">CEX Type</label>
 
                     <select
-                      name="cexType"
+                      name="wType"
                       id="cex-type"
                       className="form-control"
                     >
@@ -285,7 +285,7 @@ const AddProfile = () => {
               </div>
 
               <button type="submit" className="btn-cta">
-                Add User
+                Add User {isLoading && (<i className="fa-duotone fa-loader fa-spin"></i>)}
               </button>
             </div>
           </form>
