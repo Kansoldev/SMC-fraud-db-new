@@ -87,7 +87,9 @@ const Home: React.FC<any> = ({ data }) => {
                         Email address
                       </th>
 
-                      <th className="pt-4 pb-3 px-2 align-middle border border-solid uppercase text-sm font-semibold"></th>
+                      <th className="pt-4 pb-3 px-2 align-middle border border-solid uppercase text-sm font-semibold">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
 
@@ -127,12 +129,19 @@ const Home: React.FC<any> = ({ data }) => {
                               {profile.email}
                             </td>
 
-                            <td className="px-6 align-middle p-4">
+                            <td className="px-6 align-middle p-4 flex gap-5">
                               <Link
                                 href={`/profile?uid=${profile._id}`}
                                 className="bg-black hover:bg-neutral-800 px-6 py-3 inline-block w-max text-white font-semibold rounded-xl transition-all ease-in-out delay-150"
                               >
                                 View Full Profile
+                              </Link>
+
+                              <Link
+                                href="/"
+                                className="bg-red-600 hover:bg-red-800 px-6 py-3 inline-block w-max text-white font-semibold rounded-xl transition-all ease-in-out delay-150"
+                              >
+                                Delete
                               </Link>
                             </td>
                           </tr>
