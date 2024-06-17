@@ -2,7 +2,11 @@
 
 import { useState } from "react";
 
-const TabList = () => {
+const TabList = ({
+  onOpenModal,
+}: {
+  onOpenModal: (e: React.MouseEvent<HTMLButtonElement>) => void;
+}) => {
   const [selectedTab, setSelectedTab] = useState(0);
   const tabsData = [
     {
@@ -41,6 +45,7 @@ const TabList = () => {
         <>
           <button
             type="button"
+            onClick={onOpenModal}
             className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black mt-3"
           >
             Add a new wallet
