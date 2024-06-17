@@ -33,100 +33,6 @@ export default function Page() {
   console.log(result?.data);
 
   const user = result?.data?.profile ?? null;
-  const tabsData = [
-    {
-      title: "Social Media",
-      content: (
-        <>
-          <p className="text-gray-500">
-            Facebook: <span className="text-black ml-3"></span>
-          </p>
-
-          <p className="text-gray-500 mt-3">
-            Discord: <span className="text-black ml-3"></span>
-          </p>
-
-          <p className="text-gray-500 mt-3">
-            Instagram: <span className="text-black ml-3"></span>
-          </p>
-
-          <p className="text-gray-500 mt-3">
-            Telegram: <span className="text-black ml-3"></span>
-          </p>
-
-          <p className="text-gray-500 mt-3">
-            Twitter: <span className="text-black ml-3"></span>
-          </p>
-
-          <p className="text-gray-500 mt-3">
-            Whatsapp: <span className="text-black ml-3"></span>
-          </p>
-        </>
-      ),
-    },
-    {
-      title: "Wallet Information",
-      content: (
-        <>
-          <div>
-            <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black">
-              Add a new wallet
-            </button>
-          </div>
-        </>
-      ),
-    },
-    {
-      title: "Images",
-      content: (
-        <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black">
-            Add Images
-          </button>
-        </>
-      ),
-    },
-    {
-      title: "Audio",
-      content: (
-        <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black">
-            Add Audio
-          </button>
-        </>
-      ),
-    },
-    {
-      title: "Links",
-      content: (
-        <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black">
-            Add Links
-          </button>
-        </>
-      ),
-    },
-    {
-      title: "Reports",
-      content: (
-        <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black">
-            Add a new report
-          </button>
-        </>
-      ),
-    },
-    {
-      title: "Related Profiles",
-      content: (
-        <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black">
-            Add new related profile
-          </button>
-        </>
-      ),
-    },
-  ];
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
@@ -217,9 +123,7 @@ export default function Page() {
             </div>
           </div>
 
-          <div className="max-h-[300px] overflow-y-auto">
-            <TabList tabsData={tabsData} />
-          </div>
+          <TabList />
         </div>
       </div>
     </div>
