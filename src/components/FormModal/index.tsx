@@ -1,4 +1,5 @@
 import WalletForm from "@/src/view/dashboard/forms/addWallet";
+import AddImagesForm from "@/src/view/dashboard/forms/addImages";
 
 function FormModal({
   isOpen,
@@ -29,6 +30,7 @@ function FormModal({
 
         <form onSubmit={handleSubmit}>
           {currentBtn.current == "Add a new wallet" && <WalletForm />}
+          {currentBtn.current == "Add Images" && <AddImagesForm />}
         </form>
       </div>
     </div>

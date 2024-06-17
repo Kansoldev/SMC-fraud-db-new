@@ -44,9 +44,8 @@ const TabList = ({
       content: (
         <>
           <button
-            type="button"
-            onClick={onOpenModal}
             className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black mt-3"
+            onClick={onOpenModal}
           >
             Add a new wallet
           </button>
@@ -57,7 +56,10 @@ const TabList = ({
       title: "Images",
       content: (
         <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black mt-3">
+          <button
+            className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black mt-3"
+            onClick={onOpenModal}
+          >
             Add Images
           </button>
         </>
