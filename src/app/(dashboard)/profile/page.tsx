@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import Link from "next/link";
 import TabList from "@/src/components/TabList/index";
 import FormModal from "@/src/components/FormModal";
@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 
 export default function Page() {
   const [modalOpen, setModalOpen] = useState(false);
+  const buttonRef = useRef<string | null>("");
   const router = useRouter();
   const searchParams = useSearchParams();
   const uid = searchParams.get("uid");
@@ -16,6 +17,7 @@ export default function Page() {
 
   const handleOpenModal = (e: React.MouseEvent<HTMLButtonElement>) => {
     setModalOpen(true);
+    buttonRef.current = e.currentTarget.textContent;
   };
 
   const handleCloseModal = () => {
@@ -135,7 +137,11 @@ export default function Page() {
 
           <TabList onOpenModal={handleOpenModal} />
 
-          <FormModal isOpen={modalOpen} onClose={handleCloseModal} />
+          <FormModal
+            isOpen={modalOpen}
+            onClose={handleCloseModal}
+            currentBtn={buttonRef}
+          />
         </div>
       </div>
     </div>

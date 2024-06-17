@@ -1,11 +1,18 @@
+import WalletForm from "@/src/view/dashboard/forms/addWallet";
+
 function FormModal({
   isOpen,
   onClose,
+  currentBtn,
 }: {
   isOpen: Boolean;
   currentBtn: { current: string | null };
   onClose: () => void;
 }) {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+  };
+
   return (
     <div
       className={`fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center ${
@@ -19,6 +26,10 @@ function FormModal({
         >
           &times;
         </button>
+
+        <form onSubmit={handleSubmit}>
+          {currentBtn.current == "Add a new wallet" && <WalletForm />}
+        </form>
       </div>
     </div>
   );
