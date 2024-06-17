@@ -127,9 +127,7 @@ const AddProfile = () => {
                   <label htmlFor="sex">Gender</label>
 
                   <select name="gender" id="" className="form-control">
-                    <option value="male" defaultValue>
-                      Male
-                    </option>
+                    <option value="male">Male</option>
                     <option value="female">Female</option>
                   </select>
                 </div>
@@ -169,9 +167,7 @@ const AddProfile = () => {
                     name="walletType"
                     onChange={(e) => setWallet(e.target.value)}
                   >
-                    <option value="DEX" defaultValue>
-                      DEX
-                    </option>
+                    <option value="DEX">DEX</option>
 
                     <option value="CEX">CEX</option>
                   </select>
