@@ -1,5 +1,7 @@
 import WalletForm from "@/src/view/dashboard/forms/addWallet";
 import AddImagesForm from "@/src/view/dashboard/forms/addImages";
+import AddAudioForm from "@/src/view/dashboard/forms/addAudio";
+import AddLinksForm from "@/src/view/dashboard/forms/addLinks";
 
 function FormModal({
   isOpen,
@@ -31,6 +33,8 @@ function FormModal({
         <form onSubmit={handleSubmit}>
           {currentBtn.current == "Add a new wallet" && <WalletForm />}
           {currentBtn.current == "Add Images" && <AddImagesForm />}
+          {currentBtn.current == "Add Audio" && <AddAudioForm />}
+          {currentBtn.current == "Add Links" && <AddLinksForm />}
         </form>
       </div>
     </div>
