@@ -2,6 +2,8 @@ import WalletForm from "@/src/view/dashboard/forms/addWallet";
 import AddImagesForm from "@/src/view/dashboard/forms/addImages";
 import AddAudioForm from "@/src/view/dashboard/forms/addAudio";
 import AddLinksForm from "@/src/view/dashboard/forms/addLinks";
+import NewReportForm from "@/src/view/dashboard/forms/addReport";
+import RelatedProfileForm from "@/src/view/dashboard/forms/addRelatedProfile";
 
 function FormModal({
   isOpen,
@@ -35,6 +37,10 @@ function FormModal({
           {currentBtn.current == "Add Images" && <AddImagesForm />}
           {currentBtn.current == "Add Audio" && <AddAudioForm />}
           {currentBtn.current == "Add Links" && <AddLinksForm />}
+          {currentBtn.current == "Add a new report" && <NewReportForm />}
+          {currentBtn.current == "Add new related profile" && (
+            <RelatedProfileForm />
+          )}
         </form>
       </div>
     </div>

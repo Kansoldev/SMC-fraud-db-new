@@ -95,7 +95,10 @@ const TabList = ({
       title: "Reports",
       content: (
         <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black mt-3">
+          <button
+            className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black mt-3"
+            onClick={onOpenModal}
+          >
             Add a new report
           </button>
         </>
@@ -105,7 +108,10 @@ const TabList = ({
       title: "Related Profiles",
       content: (
         <>
-          <button className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black mt-3">
+          <button
+            className="bg-white text-black hover:bg-black hover:text-white transition-all duration-100 font-semibold text-lg px-5 py-2 border-[1px] border-black mt-3"
+            onClick={onOpenModal}
+          >
             Add new related profile
           </button>
         </>
